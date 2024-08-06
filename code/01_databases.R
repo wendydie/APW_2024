@@ -1,9 +1,9 @@
 # ******************************************************
 #
-#   Analytical Paleobiology Workshop 2023
+#   Analytical Paleobiology Workshop 2024
 #
-#   Module 2: Paleodiversity analyses
-#   Day 4 | Thursday, August 24th
+#   Module 2: Paleodiversity analyses in R
+#   Day 3 | Wednesday, August 7th
 #
 #   Emma Dunne (emma.dunne@fau.de)
 # ______________________________________________________
@@ -16,9 +16,9 @@
 
 # 0. Packages used in this script -----------------------------------------
 
-library(tidyverse) 
-library(divDyn)
-library(sepkoski)
+library(tidyverse) # for data organisation, manipulation, and visualisation
+library(divDyn) # bespoke package diversity dynamics 
+library(sepkoski) # bespoke package to access Sepkoski's compendia
 
 
 ## Clear R's environment before starting so you're working with a clean slate:
@@ -92,7 +92,7 @@ class(corals$growth)
 ## https://paleobiodb.org/classic/displayDownloadGenerator
 
 ## Now let's import it:
-pbdb_data_raw <- read.csv("./data/pbdb_data.csv", skip = 18) 
+pbdb_data_raw <- read_csv("./data/pbdb_data.csv", skip = 18) 
 
 ## Take a look inside:
 View(pbdb_data_raw)
@@ -104,7 +104,7 @@ glimpse(pbdb_data_raw)
 # 3. PBDB via URL ---------------------------------------------------------
 
 ## The Paleobiology Database data can accessed through an API request
-## Note that this requires an internet connection
+## Note that this requires an internet connection!
 
 ## First, choose a taxonomic group and time interval and create new objects:
 taxon_group <- "Pseudosuchia" # Taxon group
@@ -125,7 +125,7 @@ glimpse(occ_data_raw) # view columns
 View(occ_data_raw) # open as new tab
 
 ## It's good practice to save copies of your data as you go:
-write_csv(occ_data_raw, "./data/PBDB_pseudos_24_08_23.csv")
+write_csv(occ_data_raw, "./data/PBDB_pseudos_2014_08_07.csv")
 
 
 
@@ -158,7 +158,9 @@ length(unique(occ_data_raw$occurrence_no)) # start
 length(unique(occ_data$occurrence_no)) # finish
 
 ## If you were publishing with these data, you would also need to check the dataset for
-## errors in taxonomy, stratigraphy, geography, etc. too.
+##    errors in taxonomy, stratigraphy, geography, etc. too.
+## There are lots of other R packages (e.g. fossilbrush and palaeoverse) that have 
+##    bespoke functions to do this - be sure to check them out!
 
 
 
@@ -168,7 +170,7 @@ length(unique(occ_data$occurrence_no)) # finish
 
 ## We can also grab time intervals data from the PBDB API. 
 ## We'll do this here to help us with plotting later. However, these intervals data are 
-## quite out of date, so I wouldn't recommend relying on them for publications etc.
+##    quite out of date, so I wouldn't recommend relying on them for publications etc.
 
 ## Download names and ages of time intervals from the PBDB:
 intervals_all <- read.csv("http://paleobiodb.org/data1.1/intervals/list.txt?scale=all&limit=all")

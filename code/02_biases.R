@@ -1,9 +1,9 @@
 # ******************************************************
 #
-#   Analytical Paleobiology Workshop 2023
+#   Analytical Paleobiology Workshop 2024
 #
-#   Module 2: Paleodiversity analyses
-#   Day 4 | Thursday, August 24th
+#   Module 2: Paleodiversity analyses in R
+#   Day 3 | Wednesday, August 7th
 #
 #   Emma Dunne (emma.dunne@fau.de)
 # ______________________________________________________
@@ -15,10 +15,11 @@
 
 # 0. Packages used in this script -----------------------------------------
 
-library(tidyverse)
+#library(tidyverse)
 library(geoscale) # for plotting with the geological time scale on the x-axis (uses base R syntax)
 library(viridis) # for colour scales
 library(vegan) # for diversity metrics
+library(rgplates) # palaeogeographic reconstructions
 
 select <- dplyr::select # ensure the select function is coming from dplyr
 
@@ -55,7 +56,7 @@ for (i in 1:nrow(intervals)) {
 }
 
 
-## For equal-area gird cells, I would recommend the package 'icosa' (Kocsis, 2017)
+## For equal-area gird cells, I recommend the package 'icosa' (Kocsis, 2017)
 ## For more info see: http://cran.nexr.com/web/packages/icosa/vignettes/icosaIntroShort.pdf
 
 
@@ -126,7 +127,7 @@ ggsave(plot = proxy_plot,
 ## RStudio > Help panel (bottom right) > Search "geoscalePlot"
 
 ## Before you make the plot, set up parameters for exporting a PDF of the plot to:
-pdf("sampling_proxies_geoscale.pdf", width = 9, height = 7) 
+pdf("./plots/sampling_proxies_geoscale.pdf", width = 9, height = 7) 
 
 ## Set up the base of the plot with the timescale:
 geoscalePlot(proxy_counts$mid_ma, proxy_counts$count_taxa, # ages and main data points
@@ -168,10 +169,10 @@ dev.off() ## Turn off graphic device, to trigger the export of the pdf
 
 # 2. Collections per latitude ------------------------------------------------
 
-## Yesterday, you had a look with alpha diversity ('local richness') with Wolfgang
-##    When visualised, alpha diversity can provide more insights into sampling patterns
+## Yesterday, you had a look with alpha diversity ('local richness') 
+##    When visualised, alpha diversity can also provide more insights into sampling patterns
 ##    especially as it adds a spatial element as opposed to just temporal patterns.
-## Let's create a plot to see where the collections across time and paleolatitude.
+## Let's create a plot to see where the collections across time and palaeolatitude.
 ##    We'll also colour our plot according to the number of taxa in each collection
 
 ## There is evidence to suggest that alpha diversity is not as strongly affected by sampling biases
@@ -234,14 +235,14 @@ ggsave(plot = lat_plot,
 ## Let's do some simple regression plots:
 
 ## Raw richness vs. collections
-reg_colls <- ggplot(proxy_counts_NC, aes(x=count_taxa, y=count_colls)) + 
+reg_colls <- ggplot(proxy_counts, aes(x=count_taxa, y=count_colls)) + 
   geom_point(shape=17, size = 6, colour = "orange")+
   geom_smooth(method=lm, colour = "orange4", fill = "orange1")  +
   theme_minimal()
 reg_colls
 
 ## Raw richness vs. formations
-reg_forms <- ggplot(proxy_counts_NC, aes(x=count_taxa, y=count_formations)) + 
+reg_forms <- ggplot(proxy_counts, aes(x=count_taxa, y=count_formations)) + 
   geom_point(shape=16, size = 5, colour = "#30C430")+
   geom_smooth(method=lm, colour = "#0A6B09", fill = "#B0ECB0") +
   theme_minimal()
@@ -251,34 +252,37 @@ reg_forms
 ## Let's quantify these relationships through a liner model:
 
 ## Raw richness vs. collections
-lm_colls = lm(count_colls ~ count_taxa, proxy_counts_NC)
+lm_colls = lm(count_colls ~ count_taxa, proxy_counts)
 summary(lm_colls) # summary of results
 
 ## Raw richness vs. formations
-lm_forms = lm(count_formations ~ count_taxa, proxy_counts_NC)
+lm_forms = lm(count_formations ~ count_taxa, proxy_counts)
 summary(lm_forms)
 
-## We can test the senstivity of the data to well-sampled intervals
-##    In this case, we could remove the Norian and/or the Carnian and re-run the analyses
+## We can test the sensitivity of the data to well-sampled intervals
+## In this case, we could remove the Norian and/or the Carnian and re-run 
+##    the analyses using the code above
 
-# Take out row 6, which is the Norian
+## Take out row 6, which is the Norian
 proxy_counts_N <- proxy_counts[-6,]
-# Take out row 6 + 7 (Norian + Carnian)
+## Take out row 6 + 7 (Norian + Carnian)
 proxy_counts_NC <- proxy_counts[-c(6,7),]
 
-## Are there any changes to your results?
+## Are there any changes to your results? 
 
 
 
 # 4. Collector's curve -------------------------------------------------------
 
-## Collector's curves, also known as a species accumulation curves, can also tell us about sampling: 
-##    they display the cumulative number of taxa as a function of the cumulative effort (i.e. sampling proxy)
+## Collector's curves, also known as a species accumulation curves, can also tell us about 
+##    sampling: they display the cumulative number of taxa as a function of the cumulative 
+##    effort (i.e. sampling proxy)
 
 ## First, get our data into shape:
-## Table the number of each species per collection
-abun_data <- table(occ_data$collection_no, occ_data$accepted_name) # abundance
-#abun_data[abun_data > 0] <- 1 # if we want a presence/absence table, we can add this step
+## Table the number of each species per collection (abundance)
+abun_data <- table(occ_data$collection_no, occ_data$accepted_name)
+## If we want a presence/absence table, we can add this step:
+#abun_data[abun_data > 0] <- 1
 
 ## Turn this into a matrix:
 abun_matrix <- matrix(abun_data, ncol = length(unique(occ_data$accepted_name)))
@@ -288,7 +292,6 @@ rownames(abun_matrix) <- rownames(abun_data) # same for the row names
 ## Using the vegan package, we can make the collectors or species accumulation curve
 ## Check out the help file for specaccum() to find out more about the methods
 sp_accum <- specaccum(abun_matrix, method = "collector")
-summary(sp_accum) # bring up the summary
 
 ## Plot the curve in base R - you can make this pretty in ggplot if you prefer!
 plot(sp_accum, ci.type = "poly", col = "#0E6A8A", lwd = 2, ci.lty = 0, ci.col = "#5CBCDD")
@@ -299,7 +302,7 @@ plot(sp_accum, ci.type = "poly", col = "#0E6A8A", lwd = 2, ci.lty = 0, ci.col = 
 
 # 5. Modern world map --------------------------------------------------------
 
-## Finally, let's explore our data on a modern world map and see if we can spot
+## Let's explore our data on a modern world map and see if we can spot
 ##    any geographic (and even socio-economic) patterns...
 
 ## First, let's pear down or occurrence data to only keep the info we need for making the map
@@ -325,4 +328,56 @@ ggsave(plot = modern_map,
        width = 8, height = 5, dpi = 600, 
        filename = "./plots/Modern_map.pdf", useDingbats=FALSE)
 
+
+
+
+
+# 6. Palaeogeographic maps ------------------------------------------------
+
+## Now let's look at our occurrences on a world map with palaeogeographic rotations
+
+## First, create a new, simplified data object to build our palaeomap:
+paleomap_data <- occ_data %>% 
+  select(collection_name, lat, lng, paleolat, paleolng, early_interval, late_interval, max_ma, min_ma) %>% 
+  distinct(collection_name, .keep_all = TRUE) %>% 
+  na.omit(collection_name)
+
+## Now, let's split these data in Late Triassic and Early Jurassic 
+## (This is a very crude splitting for simplicity, but for a publication I would recommend
+##    being more specific about how intervals are divided)
+map_data_LT <- paleomap_data %>% filter(max_ma >= 201.4)
+map_data_EJ <- paleomap_data %>% filter(max_ma <= 201.4)
+
+## Let's now grab our paleogeographies for the time bins from the GPlates (via rgplates)
+paleogeog_LT <- reconstruct("coastlines", age = 215, model="MERDITH2021") 
+paleogeog_EJ <- reconstruct("coastlines", age = 190, model="MERDITH2021") 
+
+
+## Now let's start the map:
+## Begin by setting a theme (these settings are pretty minimal):
+palaeomap_theme <- theme_minimal() + theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                                           axis.title.y=element_blank(), axis.text.y=element_blank(),
+                                           axis.ticks.x=element_blank(), axis.ticks.y=element_blank(),
+                                           legend.title=element_blank())
+
+## Now let's plot the each of the maps - first, the Late Triassic!
+paleomap_LT <-  ggplot() +
+  ## Add the landmasses
+  geom_sf(data = paleogeog_LT, colour = "grey75", fill = "grey75") +
+  ## Add the occurrence data (and set your colour!):
+  geom_point(data = map_data_LT, aes(x = paleolng, y = paleolat), color = "#0DA69B", size = 4,  alpha = 0.8) + 
+  ## Add lines from the x and y axes
+  #scale_y_continuous(breaks = seq(from = -90, to = 90, by = 30), limits = c(-90,90)) + 
+  #scale_x_continuous(breaks = seq(from = -180, to = 180, by = 30), limits = c(-180,180)) + 
+  ## Add the interval name to the title of each map 
+  ggtitle("Late Triassic") +
+  ## Finally, add the custom theme
+  palaeomap_theme
+paleomap_LT
+
+
+## And finally, save as a .pdf
+ggsave(plot = paleomap_LT,
+       width = 12, height = 10, dpi = 600, 
+       filename = "./plots/Palaeomap_LateTriassic.pdf", useDingbats=FALSE)
 

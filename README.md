@@ -44,4 +44,6 @@ Wednesday, August 7th 2024
 
 To use it, you can fork the repo, which creates a copy of it for you to use without making changes to this original one. Or you can simply download it as a .zip file to your computer and with with it from there.
 
-For the duration of the workshop, this will be a public repository. After the workshop it will be returned to private where it will be updated for next time. 
+Before working with scripts 1-3, ensure that you have all of the associated R packages installed and loaded. You will find a list of them in script 0. 
+
+
