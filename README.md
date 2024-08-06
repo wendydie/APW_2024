@@ -2,7 +2,6 @@
 
 <br>
 
-### Author:
 Emma Dunne (emma.dunne[at]fau.de)
 
 <br>
@@ -26,7 +25,7 @@ This repository contains all materials, such as code and slideshows, for *Day 4:
 
 Wednesday, August 7th 2024
 
-|-------|-------|-----------------------------------|
+
 | From  | To    | Details                           |
 |-------|-------|-----------------------------------|
 | 9:15  | 10:30 | Databases in paleobiology         |
@@ -36,14 +35,25 @@ Wednesday, August 7th 2024
 | 13:30 | 15:00 | Sampling standardisation          |
 | 15:00 | 15:15 | **Coffee**                        |
 | 15:15 | 16:45 | Sampling standardisation cont.    |
-|-------|-------|-----------------------------------|
+
 
 <br>
 
 ## Using this repo
 
-To use it, you can fork the repo, which creates a copy of it for you to use without making changes to this original one. Or you can simply download it as a .zip file to your computer and with with it from there.
+To use the files within this repository, you can simply download it as a .zip file to your computer and work with it from there. Or you can 'fork' it, which creates a copy of it for you to use without making changes to this original one
 
-Before working with scripts 1-3, ensure that you have all of the associated R packages installed and loaded. You will find a list of them in script 0. 
+- To download this repo as a .zip file, click the green 'Code' button and the 'Download ZIP'. Be sure to place your downloaded folder someone sensible on your own computer!
+- For instructions on how to set up git to use it through RStudio, see [this tutorial](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html)
+- To 'fork' and 'clone' this repo and open it in RStudio, see [this tutorial](https://github.com/rstats-tln/fork-and-clone-repo)
 
 
+## Workflow
+
+1. **R packages**: Before we begin, ensure that you have all of the associated R packages installed and loaded. You will find a list of them in script 0. 
+
+2. **Code**: Scripts 1-3 are in chronological order — we will start at 1 and proceed through 2 and 3 across the course of the day
+
+3. 
+
+<br>
