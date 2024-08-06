@@ -4,7 +4,6 @@
 
 Emma Dunne (emma.dunne[at]fau.de)
 
-<br>
 
 > Indeed, there are many things that we might never know about extinct species, such as their true geographic range or abundances. But, for now, we should view our knowledge of the history of life on Earth as a work in progress - *Roger Benson* (2018)
 
@@ -18,8 +17,6 @@ This repository contains all materials, such as code and slideshows, for *Day 4:
 2. **Fossil record data structure** - exploring the impact of heterogeneous data structures (biases) on estimates of diversity through visualisations and simple statistics
 3. **Sampling standardisation** - Rarefaction/Extrapolation curves, coverage-based rarefaction with iNEXT, Shareholder Quorum Subsampling (SQS), and squares
 
-
-<br>
 
 ## Schedule
 
@@ -37,8 +34,6 @@ Wednesday, August 7th 2024
 | 15:15 | 16:45 | Sampling standardisation cont.    |
 
 
-<br>
-
 ## Using this repo
 
 To use the files within this repository, you can simply download it as a .zip file to your computer and work with it from there. Or you can 'fork' it, which creates a copy of it for you to use without making changes to this original one
@@ -54,6 +49,11 @@ To use the files within this repository, you can simply download it as a .zip fi
 
 2. **Code**: Scripts 1-3 are in chronological order — we will start at 1 and proceed through 2 and 3 across the course of the day
 
-3. 
 
-<br>
+## Useful resources
+
+- [HTML Color Codes](https://htmlcolorcodes.com/)
+- [Geo timescale hex codes](https://github.com/crimeacs/Geochronological_Colors/blob/master/Geochronological_scale_HEX.pdf)
+- [Coolers colour palette generator](https://coolors.co/)
+
+
