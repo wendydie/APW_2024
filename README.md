@@ -1,8 +1,8 @@
 # APW 2024 - Palaeodiversity in R
 
-<br>
-
 Emma Dunne (emma.dunne[at]fau.de)
+
+<br>
 
 
 > Indeed, there are many things that we might never know about extinct species, such as their true geographic range or abundances. But, for now, we should view our knowledge of the history of life on Earth as a work in progress - *Roger Benson* (2018)
