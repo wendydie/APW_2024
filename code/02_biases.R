@@ -235,7 +235,7 @@ ggsave(plot = lat_plot,
 ## Let's do some simple regression plots:
 
 ## Raw richness vs. collections
-reg_colls <- ggplot(proxy_counts, aes(x=count_taxa, y=count_colls)) + 
+reg_colls <- ggplot(proxy_counts_NC, aes(x=count_taxa, y=count_colls)) + 
   geom_point(shape=17, size = 6, colour = "orange")+
   geom_smooth(method=lm, colour = "orange4", fill = "orange1")  +
   theme_minimal()
@@ -252,10 +252,9 @@ reg_forms
 ## Let's quantify these relationships through a liner model:
 
 ## Raw richness vs. collections
-lm_colls = lm(count_colls ~ count_taxa, proxy_counts)
+lm_colls = lm(count_colls ~ count_taxa, proxy_counts_NC)
 summary(lm_colls) # summary of results
 
-## Raw richness vs. formations
 lm_forms = lm(count_formations ~ count_taxa, proxy_counts)
 summary(lm_forms)
 
