@@ -3,7 +3,7 @@
 #   Analytical Paleobiology Workshop 2024
 #
 #   Module 2: Paleodiversity analyses in R
-#   Day 3 | Wednesday, August 7th
+#   Day 3 | Wednesday, August 7th  
 #
 #   Emma Dunne (emma.dunne@fau.de)
 # ______________________________________________________
