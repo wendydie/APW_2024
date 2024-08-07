@@ -235,7 +235,7 @@ ggsave(plot = lat_plot,
 ## Let's do some simple regression plots:
 
 ## Raw richness vs. collections
-reg_colls <- ggplot(proxy_counts, aes(x=count_taxa, y=count_colls)) + 
+reg_colls <- ggplot(proxy_counts_NC, aes(x=count_taxa, y=count_colls)) + 
   geom_point(shape=17, size = 6, colour = "orange")+
   geom_smooth(method=lm, colour = "orange4", fill = "orange1")  +
   theme_minimal()
@@ -252,10 +252,9 @@ reg_forms
 ## Let's quantify these relationships through a liner model:
 
 ## Raw richness vs. collections
-lm_colls = lm(count_colls ~ count_taxa, proxy_counts)
+lm_colls = lm(count_colls ~ count_taxa, proxy_counts_NC)
 summary(lm_colls) # summary of results
 
-## Raw richness vs. formations
 lm_forms = lm(count_formations ~ count_taxa, proxy_counts)
 summary(lm_forms)
 
@@ -318,7 +317,7 @@ ggplot() + geom_map(data = world_map, map = world_map, aes(long, lat, map_id = r
 ## Let's make it pretty and add our data
 modern_map <- ggplot() + 
   geom_map(data = world_map, map = world_map, aes(long, lat, map_id = region), 
-           color = "grey80", fill = "grey90", size = 0.1) +
+           color = "grey80", fill = "grey90", linewidth = 0.1) +
   geom_point(data = locality_info, aes(lng, lat), alpha = 0.3, size = 4, colour = "#9B1999") +
   theme_void() + theme(legend.position = "none")
 modern_map
@@ -349,7 +348,7 @@ map_data_LT <- paleomap_data %>% filter(max_ma >= 201.4)
 map_data_EJ <- paleomap_data %>% filter(max_ma <= 201.4)
 
 ## Let's now grab our paleogeographies for the time bins from the GPlates (via rgplates)
-paleogeog_LT <- reconstruct("coastlines", age = 215, model="MERDITH2021") 
+paleogeog_LT <- reconstruct("static_polygons", age = 215, model="MERDITH2021") 
 paleogeog_EJ <- reconstruct("coastlines", age = 190, model="MERDITH2021") 
 
 
