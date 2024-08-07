@@ -317,7 +317,7 @@ ggplot() + geom_map(data = world_map, map = world_map, aes(long, lat, map_id = r
 ## Let's make it pretty and add our data
 modern_map <- ggplot() + 
   geom_map(data = world_map, map = world_map, aes(long, lat, map_id = region), 
-           color = "grey80", fill = "grey90", size = 0.1) +
+           color = "grey80", fill = "grey90", linewidth = 0.1) +
   geom_point(data = locality_info, aes(lng, lat), alpha = 0.3, size = 4, colour = "#9B1999") +
   theme_void() + theme(legend.position = "none")
 modern_map
@@ -348,7 +348,7 @@ map_data_LT <- paleomap_data %>% filter(max_ma >= 201.4)
 map_data_EJ <- paleomap_data %>% filter(max_ma <= 201.4)
 
 ## Let's now grab our paleogeographies for the time bins from the GPlates (via rgplates)
-paleogeog_LT <- reconstruct("coastlines", age = 215, model="MERDITH2021") 
+paleogeog_LT <- reconstruct("static_polygons", age = 215, model="MERDITH2021") 
 paleogeog_EJ <- reconstruct("coastlines", age = 190, model="MERDITH2021") 
 
 
